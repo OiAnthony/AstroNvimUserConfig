@@ -37,6 +37,7 @@ return {
   { import = "astrocommunity.pack.thrift" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.docker" },
+  { import = "astrocommunity.pack.astro" },
 
   -- PLS
   { import = "astrocommunity.programming-language-support.rest-nvim" },
