@@ -31,8 +31,52 @@ return {
   --     -- add more custom luasnip configuration such as filetype extend or custom snippets
   --     local luasnip = require "luasnip"
   --     luasnip.filetype_extend("javascript", { "javascriptreact" })
+  --     require("luasnip.loaders.from_lua").load { "~/.config/nvim/lua/user/snippets" }
   --   end,
   -- },
+  {
+    "L3MON4D3/LuaSnip",
+    config = function(plugin, opts)
+      require "plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+      -- add more custom luasnip configuration such as filetype extend or custom snippets
+      local luasnip = require "luasnip"
+      luasnip.filetype_extend("javascript", { "javascriptreact" })
+      -- path to snippets lua files
+      require("luasnip.loaders.from_lua").load {
+        paths = { "~/.config/nvim/lua/user/snippets" },
+      }
+      -- load snippets from path/of/your/nvim/config/my-cool-snippets
+      require("luasnip.loaders.from_vscode").lazy_load { paths = { "~/.config/nvim/lua/user/snippets" } }
+    end,
+  },
+
+  -- registry codeium into cmp sources
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      -- ...
+      {
+        "Exafunction/codeium.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "hrsh7th/nvim-cmp",
+        },
+        config = function(_, opts) require("codeium").setup(opts) end,
+      },
+    },
+    opts = function(_, opts)
+      local cmp = require "cmp"
+      -- modify the sources part of the options table
+      opts.sources = cmp.config.sources {
+        { name = "codeium", priority = 1250 },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", priority = 750 },
+        { name = "buffer", priority = 500 },
+        { name = "path", priority = 250 },
+      }
+    end,
+  },
+
   -- {
   --   "windwp/nvim-autopairs",
   --   config = function(plugin, opts)

@@ -22,7 +22,6 @@ return {
       },
     },
   },
-  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 
   -- Languages Support
   { import = "astrocommunity.pack.rust" },
@@ -45,6 +44,8 @@ return {
   -- Completion
   { import = "astrocommunity.completion.codeium-vim" },
 
+  -- Utility
+  { import = "astrocommunity.utility.noice-nvim" },
   { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   {
     "m4xshen/smartcolumn.nvim",
